@@ -1,0 +1,126 @@
+ 1.单行省略号，多行省略号实现（css实现，js实现）
+
+	单行 首先要是个支持宽高的元素  一个溢出隐藏   一个强制不换行  一个超出...  三个样式
+
+ 2.元素绝对居中方式
+
+	水平居中  margin auto  
+	水平垂直  用定位  position：absolute  left：50%   top:50%   margin-top:-50%   margin-left:-50%
+				position:absolute   left right top bottom  都是0  margin：auto
+		  弹性盒模型 display flex；justify-center:属性设置center  侧轴属性 align-items：center
+
+
+			定位元素  父级是固定定位时  子集可以相对父级定位（百度）
+
+
+弹性盒模型属性
+	display：flex
+	flex-direction: x轴 row；反向row-reverse  Y轴column  反向 column-revere  
+			jestify-content属性设置元素之间多余空间怎么分配
+			属性：flex-start (默认) 元素在开始位置 富裕空间占据另一侧
+				flex-end 富裕空间在开始位置 元素占据另一侧
+				center 元素居中 富裕空间 平分左右两侧
+				space-between 富裕空间在元素之间平均分配
+				space-around  富裕空间在元素两侧平均分配
+			
+			align-items设置侧轴（侧轴：主轴是Y，侧轴是X，主轴是X侧轴是Y）
+			属性：	flex-start (默认) 元素在开始位置 富裕空间占据另一侧
+				flex-end 富裕空间在开始位置 元素占据另一侧
+				center 元素居中 富裕空间 平分左右两侧
+			换行  flex-warp：参数 warp   nowarp  warp-reverse(换行翻转)
+			order子元素属性  设置子元素显示顺序   越大越往后
+			设置伸缩性 flex:none不允许伸缩
+
+
+		
+盒模型
+
+	正常盒模型
+		content =》padding=》border》margin组成
+		正常盒模型 content区 不包括border padding 
+		IE8盒模型content区域指包含border padding
+		
+		正常盒模型要想要content区域包含 border padding  box-size：border-box;  默认content-box
+
+
+
+
+h5新标签
+	新标签 ： header  footer   nav  section   storge ；canvas画布功能；audio音频标签   优点让代码更好维护更有语义化；
+	
+	缓存方法  常用localstorge；  储存大小 5M左右  
+	
+
+css3特性
+	新增选择器  nth-of-type  first-child等..  新效果  box-shadow  background-size  媒体查询  动画animation
+	3D动画效果  transition过渡   颜色rgba（）
+
+	
+
+
+		 
+3.左中右布局
+
+
+
+1像素问题怎么解决
+
+
+git常用命令
+
+
+
+js问题：尽可能说原理，还有在项目中怎么使用
+
+ 2.闭包
+
+作用域
+
+
+this指向 
+
+
+call，bind，apply
+
+
+
+ 3.数据类型及检测
+ 4.原型原型链，面向对象（可能不问）
+ 5.宏任务微任务同步异步线程进程
+ 6.es6 ·mise用法
+ 7.防抖节流原理以及使用
+vue问题：
+ 1.组件传值的方式
+ 2.vuex怎么使用
+ 3.v-if和v-show区别，v-if和v-show优先级
+ 4.插槽,mixins
+ 5.vue中的优化
+网络问题:
+ http状态码
+ https与http区别
+ axios用法以及优缺点
+ get和post区别
+ 跨域
+
+缓存的三种方法  以及差别
+
+
+数组的方法
+
+字符串的方法
+
+es6新特性
+
+
+http  https区别
+
+变量提升  
+
+文档流
+
+vuex的使用
+
+vueRouter的使用
+
+
+
