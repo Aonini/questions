@@ -64,12 +64,14 @@ css3特性
 
 
 1像素问题怎么解决
+
 	rem适配用考拉预编译器  vue里面应该是不需要考拉编译器 最终打包成css文件   原理：计算当前
 	
 	媒体查询 设备宽度放生变化时变化样式
 
 
 git常用命令
+		git add .  git push  git pull  git commit -m "备注"  git push origin master    git clone  
 
 
 
@@ -77,53 +79,362 @@ js问题：尽可能说原理，还有在项目中怎么使用
 
  2.闭包
 
+  闭包理解  
+
+		就是在函数外面用到了一个函数内部的变量 
+
+
+
 作用域
+
+	函数能够形成作用域
+
+  	有局部变量和全局变量   局部变量在函数内定义  局部变量只有在当前所在的作用域内才能使用 
+			全局变量在函数外定义   网页里面所有的函数都可以使用的
+
+
 
 
 this指向 
 
+	主要是看谁调用函数   
+
+		1. 直接调用 this => window
+		2. 事件调用 this => 触发事件的元素
+		3. 对象调用 this => 调用函数的对象
+		4. 定时器调用 this => window
+		5. new调用 this => 创建的实例对象
+
 
 call，bind，apply
+	三个函数都是改变this的指向   不同的是 apply和call基本类似   区别传入参数的不同 
+					
+				call(需要指向的this，1,2,1，,5)接受若干个参数列表
+				apply（需要指向的this，[1,2,2,5]）一个数组，这个数组或类数组包含多个参数
+
+			function add(a,b){
+				console.log(this);
+				console.log(a,b,a+b);
+			}
+
+			add.call({a:1},1,2);输出： {a:1}    1 2 3
+			add.apply({b:1},[4,5]);输出： {b:1}  4 5 9
+			
+			call和apply都是直接调用了函数 	bind没怎么用		
+
+	
 
 
 
  3.数据类型及检测
+	7种类型
+	数字number
+	null
+	undefined
+	string 字符串
+	array  数组
+	objct  对象
+	nan
+
+	es5用isnan不能够达到预期效果
+		isNaN(undefined) //true
+		isNaN(NaN) //true
+		isNaN('qwer') //true
+		isNaN(123) //false	
+
+	Number.isNan  能够判断是不是nan	
+	
+	
+
+
  4.原型原型链，面向对象（可能不问）
+
+
+
+
+
  5.宏任务微任务同步异步线程进程
- 6.es6 ·mise用法
+
+	js单线程 脚本  比如 执行了一个alert之后   只有alert点了确定之后  才会执行接下来的代码 或者大量计算
+		
+	宏任务包括：宿主环境（浏览器，node）提供的：script，settimeout，click，ajax等（代码的运行环境提供的）
+	微任务 ：语言规范(语言提供的)（es6，es5，html5）  提供的promis.then（）、$nextTick();
+	
+
+$nextTick()是等到数据变化 ，下次dom更新之后触发的函数，比如vue的钩子函数例子：
+	
+mounted() {//dom挂载完成
+      console.log(333);
+      console.log(this.$refs['hello']);
+      this.$nextTick(() => {
+        console.log(444);
+        console.log(this.$refs['hello']);
+      });
+    },
+    created() {//dom创建
+      console.log(111);
+      console.log(this.$refs['hello']);
+      this.$nextTick(() => {
+        console.log(222);
+        console.log(this.$refs['hello']);
+      });
+    }
+输出结果        111 undefind
+		333  div
+		222 div
+		444 div
+
+
+ 6.es6 常用
+	声明变量  let同一作用域下不能有一样的变量名会报错 coust声明常量不可以修改会报错
+	·${模板字符串}·
+	解构 
+	对象同样的名字可以简写
+	箭头函数  （）=> 特点this的指向  指向箭头函数被声明的作用域
+	展开运算符 ...res
+	Number.isNan  判断是不是nan
+	Objct.prototype.toString.call(需要测试的值)
+	默认参数函数  fn(arr=[],oo="是默认参数") 等 ...
+
+
+
+
+
  7.防抖节流原理以及使用
+
+	利用定时器，
+
+
+
+
 vue问题：
- 1.组件传值的方式
+ 1.组件传值的方式 
+	prop   父组件直接  ：参数=“需要传过来的参数”  子组件 prop：[]  
+	兄弟及组件用this.$emit("名称"，要存的数据)
+	this.$on("名称"，fn(需要运行的函数))
+
+
+
+ 
  2.vuex怎么使用
+
+	npm install vuex --save
+	import  vuex from "vuex"
+	vue.use(vuex)
+	
+	const store  = new Vuex.Store({
+		state:{
+		const:0			
+		},
+		mutations:{
+			changeCounst(state,new){
+			state.const=new;
+			}
+	}
+	
+	})
+
+	
+	new Vue({
+    		store: store  
+	}).$mount('#app')
+	
+
+	//提交的时候 
+
+	this.$store.commit(changeCounst,新的要改变的值)
+
+	取值
+
+	computesd:{
+
+	p（）{
+		return  this.$store.stte.changeCounst;
+
+	}
+
+	}
+
+	watch:{
+	p(newVal){
+	改变之后要做的事情
+
+	}
+	}
+
+
+	
+
  3.v-if和v-show区别，v-if和v-show优先级
- 4.插槽,mixins
+		v-if在初始条件不成立时 什么也不会做  只有条件成立时才会渲染
+		v-show不管初始条件是什么，元素总是被渲染，并且单纯的基于css进行切换
+		能进行条件判断  用v-else做分支判断
+
+		v-if的原理是根据判断条件来动态的进行增删DOM元素，v-show是根据判断条件来动态的进行显示和隐藏元素
+		应用场景   频繁切换时否显示时  比较适合用v-show
+	
+		v-if优先
+
+ 4.插槽
+	slot
+	在父组件标签里面写一些结构  子组件路面定义一个slot标签  父组件内容替换子组件slot标签里面包裹的内容  不传内容则用标签里面默认内容
+		
+
+
+
+  mixins
+
+
  5.vue中的优化
+		
+	页面使用缓存  keep-alive包裹router
+	减少图片引入
+	按需引入
+
 网络问题:
- http状态码
+ http状态码  
+	401token过期
+	500服务端错误
+	0请求没发出去
+	200成功
+	404url未找到  还有可能get参数错误 
+
+
+
+
  https与http区别
+
+	https更加安全   http请求截取浏览器和服务器之间的传输报文
+
+	https有ssl加密传输协议，为浏览器和服务器之间的通信加密，确保数据传输的安全。
+
+
+
  axios用法以及优缺点
+		
+	用法  npm install axios --save
+	去检查一下package.json  检查有没有写入
+	main.js里面 引入 
+	import Axios  from  "axios"
+	Vue.prototype.$axios = Axios;
+
+	this.$axios.get(url).then((res)=>{}).catch((err)=>{})
+
+
+		
+
+
  get和post区别
+
+	get 请求参数跟在url后面  大部分请求数据用get
+	post 提交数据用到
+	安全可以用代码加密 
+
  跨域
+
+
+
+
 
 缓存的三种方法  以及差别
 
-
-数组的方法
-
-字符串的方法
-
-es6新特性
+localstore只要不手动清除，就不会消失，内存大概5M左右   
 
 
-http  https区别
+sessionStorage关闭浏览器就消失，刷新不消失
+
+
+cookie限制大小 4kb左右
+
+
+
+数组的方法：
+
+push 添加到最后
+pop插入到最前面
+shift删除数组的第一项
+forEach()循环
+map()循环返回新数组
+filter()过滤
+sort()排序
+join()变成字符串
+concat()
+slice()截取  两个参数 起始位置  结束位置  不会修改原数组
+
+reverse() 会改变原来的数组而不会创建新的数组。
+
+splice()替换  三个参数 起始位置  要删除的数量  用什么代替
+indexof（）是否存在  不再返回-1  在返回index
+
+
+
+字符串的方法:
+	
+
+					charAt(index) ''
+					indexOf('char/string') index -1
+					slice(start,end) ''字符串截取
+					substring(start,end)方法返回的子串包括 start 处的字符，但不包括 stop 处的字符。
+					substr(start,legnth)可以是负数  从后往前数
+					toUpperCase()大小写转换
+					toLowerCase()
+					split(分割符) 转成数组
+					trim()空格
+		符串的方法调用后都不会改变原字符串,操作完字符串后，所改变的，是方法返回的新的字符穿
 
 变量提升  
 
+
 文档流
 
-vuex的使用
 
-vueRouter的使用
+概念 四个快  其中一个快飘起来覆盖不占位置  他后面的块就会填补他本来的位置
+
+
+
+
+vueRouter的使用:
+
+
+npm install vue-router --save
+
+import vueRouter  from  "vue-router"
+vue.use(vueRouter)
+
+let routes=[{
+ 	path: "/login",
+        component: Login,
+        name: "login"
+
+}]
+
+let  router  = new Router({
+routes
+})
+
+vue.new({
+router  
+})
+
+
+深浅拷贝：
+  只针对 obj  Arr这种类型数据
+
+我们把一个对象赋值给一个新的变量时，
+赋的其实是该对象的在栈中的地址，
+而不是堆中的数据。
+也就是两个对象指向的是同一个存储空间，
+无论哪个对象发生改变，
+其实都是改变的存储空间的内容，
+因此，两个对象是联动的。
+
+浅拷贝不会影响之前复制的对象  用Object.assign()可以实现
+
+对象只有一层的时候是深拷贝
+
+
+
+
 
 
 
