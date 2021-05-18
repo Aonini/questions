@@ -185,6 +185,41 @@ mounted() {//dom挂载完成
 		444 div
 
 
+下面的输出结果是6个1   先执行宏任务settimeout  所以等10000毫秒之后  先执行定时器里面的   在执行外面的
+
+let o = new Promise((love,obj)=>{
+        setTimeout(()=>{
+			love(1)	
+        },1000)
+    })
+    o.then((res)=>{
+        console.log(res)
+    })
+    o.then((res)=>{
+        console.log(res)
+    })
+    o.then((res)=>{
+        console.log(res)
+    })
+    o.then((res)=>{
+        console.log(res)
+    })
+    o.then((res)=>{
+        console.log(res)
+    })
+
+	
+    setTimeout(()=>{
+       o.then((res)=>{
+        console.log(res)
+    })     
+    },10000)
+
+		
+
+
+
+
  6.es6 常用
 	声明变量  let同一作用域下不能有一样的变量名会报错 coust声明常量不可以修改会报错
 	·${模板字符串}·
@@ -428,6 +463,8 @@ router
 其实都是改变的存储空间的内容，
 因此，两个对象是联动的。
 
+
+
 浅拷贝不会影响之前复制的对象  用Object.assign()可以实现
 
 对象只有一层的时候是深拷贝
@@ -435,6 +472,8 @@ router
 
 
 
+从数组里面截取掉某一项的方法
 
 
 
+浏览器的垃圾回收机制
